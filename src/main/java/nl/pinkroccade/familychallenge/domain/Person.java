@@ -54,12 +54,22 @@ public class Person {
         this.id = id;
     }
 
+    public Person withId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Person withName(String name) {
+        this.name = name;
+        return this;
     }
 
     public LocalDate getBirthDate() {
@@ -70,12 +80,22 @@ public class Person {
         this.birthDate = birthDate;
     }
 
+    public Person withBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+        return this;
+    }
+
     public Long getParent1Id() {
         return parent1Id;
     }
 
     public void setParent1Id(Long parent1Id) {
         this.parent1Id = parent1Id;
+    }
+
+    public Person withParent1Id(Long parent1Id) {
+        this.parent1Id = parent1Id;
+        return this;
     }
 
     public Long getParent2Id() {
@@ -86,12 +106,22 @@ public class Person {
         this.parent2Id = parent2Id;
     }
 
+    public Person withParent2Id(Long parent2Id) {
+        this.parent2Id = parent2Id;
+        return this;
+    }
+
     public Long getPartnerId() {
         return partnerId;
     }
 
     public void setPartnerId(Long partnerId) {
         this.partnerId = partnerId;
+    }
+
+    public Person withPartnerId(Long partnerId) {
+        this.partnerId = partnerId;
+        return this;
     }
 
     public Set<Long> getChildrenIds() {
@@ -102,6 +132,11 @@ public class Person {
         this.childrenIds = childrenIds != null ? new HashSet<>(childrenIds) : new HashSet<>();
     }
 
+    public Person withChildrenIds(Set<Long> childrenIds) {
+        this.childrenIds = childrenIds != null ? new HashSet<>(childrenIds) : new HashSet<>();
+        return this;
+    }
+
     public void addChild(Long childId) {
         if (childId != null) {
             this.childrenIds.add(childId);
@@ -110,6 +145,13 @@ public class Person {
 
     public void removeChild(Long childId) {
         this.childrenIds.remove(childId);
+    }
+
+    public Person withChild(Long childId) {
+        if (childId != null) {
+            this.childrenIds.add(childId);
+        }
+        return this;
     }
 
     @Override
