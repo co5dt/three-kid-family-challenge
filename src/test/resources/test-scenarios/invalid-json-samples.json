@@ -1,0 +1,40 @@
+{
+  "description": "Invalid JSON that should be rejected",
+  "invalidRequests": [
+    {
+      "case": "missing-id",
+      "payload": {
+        "name": "No ID Person",
+        "birthDate": "1980-01-01"
+      },
+      "expectedError": "Validation error: ID is required"
+    },
+    {
+      "case": "null-id",
+      "payload": {
+        "id": null,
+        "name": "Null ID Person"
+      },
+      "expectedError": "Validation error: ID cannot be null"
+    },
+    {
+      "case": "invalid-date-format",
+      "payload": {
+        "id": 9999,
+        "name": "Bad Date",
+        "birthDate": "13/25/2020"
+      },
+      "expectedError": "Invalid date format"
+    },
+    {
+      "case": "future-birthdate",
+      "payload": {
+        "id": 9998,
+        "name": "Time Traveler",
+        "birthDate": "2099-01-01"
+      },
+      "expectedError": "Birth date cannot be in the future"
+    }
+  ]
+}
+

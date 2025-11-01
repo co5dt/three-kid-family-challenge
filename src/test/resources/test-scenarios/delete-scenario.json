@@ -1,0 +1,31 @@
+{
+  "description": "DELETE requests and ignore-list behavior",
+  "setup": [
+    {
+      "id": 5000,
+      "name": "To Be Deleted",
+      "birthDate": "1980-01-01"
+    },
+    {
+      "id": 5001,
+      "name": "Will Stay",
+      "birthDate": "1982-01-01"
+    }
+  ],
+  "deleteRequest": [5000, 5002, 5003],
+  "afterDeleteAttempts": [
+    {
+      "id": 5000,
+      "name": "Should Be Ignored",
+      "birthDate": "1980-01-01"
+    },
+    {
+      "id": 5002,
+      "name": "Never Existed But Ignored",
+      "birthDate": "1985-01-01"
+    }
+  ],
+  "expectedIgnoredIds": [5000, 5002, 5003],
+  "expectedStoredIds": [5001]
+}
+

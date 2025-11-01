@@ -1,0 +1,21 @@
+{
+  "description": "Person references IDs that haven't been POSTed yet",
+  "requests": [
+    {
+      "id": 600,
+      "name": "Child First",
+      "birthDate": "2015-01-01",
+      "parent1": { "id": 9999 },
+      "parent2": { "id": 9998 }
+    },
+    {
+      "id": 601,
+      "name": "Person With Ghost Partner",
+      "birthDate": "1980-01-01",
+      "partner": { "id": 7777 }
+    }
+  ],
+  "expectedMatch": false,
+  "notes": "Should handle gracefully without crashing"
+}
+

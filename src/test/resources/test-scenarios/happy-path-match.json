@@ -1,0 +1,41 @@
+{
+  "description": "Perfect match: Partner + 3 kids with same partner + 1 under 18",
+  "requests": [
+    {
+      "id": 1,
+      "name": "John Parent",
+      "birthDate": "1980-05-15",
+      "partner": { "id": 2 }
+    },
+    {
+      "id": 2,
+      "name": "Jane Parent",
+      "birthDate": "1982-03-20",
+      "partner": { "id": 1 }
+    },
+    {
+      "id": 10,
+      "name": "Child One",
+      "birthDate": "2010-01-01",
+      "parent1": { "id": 1 },
+      "parent2": { "id": 2 }
+    },
+    {
+      "id": 11,
+      "name": "Child Two",
+      "birthDate": "2012-06-15",
+      "parent1": { "id": 1 },
+      "parent2": { "id": 2 }
+    },
+    {
+      "id": 12,
+      "name": "Child Three",
+      "birthDate": "2020-12-25",
+      "parent1": { "id": 1 },
+      "parent2": { "id": 2 }
+    }
+  ],
+  "expectedMatch": true,
+  "matchingPersonIds": [1, 2]
+}
+

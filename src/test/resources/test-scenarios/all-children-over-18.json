@@ -1,0 +1,40 @@
+{
+  "description": "Partner + 3 kids but ALL over 18 - should NOT match",
+  "requests": [
+    {
+      "id": 300,
+      "name": "Old Parent 1",
+      "birthDate": "1960-01-01",
+      "partner": { "id": 301 }
+    },
+    {
+      "id": 301,
+      "name": "Old Parent 2",
+      "birthDate": "1962-01-01",
+      "partner": { "id": 300 }
+    },
+    {
+      "id": 310,
+      "name": "Adult Child 1",
+      "birthDate": "1990-01-01",
+      "parent1": { "id": 300 },
+      "parent2": { "id": 301 }
+    },
+    {
+      "id": 311,
+      "name": "Adult Child 2",
+      "birthDate": "1992-01-01",
+      "parent1": { "id": 300 },
+      "parent2": { "id": 301 }
+    },
+    {
+      "id": 312,
+      "name": "Adult Child 3",
+      "birthDate": "1995-01-01",
+      "parent1": { "id": 300 },
+      "parent2": { "id": 301 }
+    }
+  ],
+  "expectedMatch": false
+}
+

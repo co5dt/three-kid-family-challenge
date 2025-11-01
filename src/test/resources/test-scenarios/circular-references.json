@@ -1,0 +1,20 @@
+{
+  "description": "Impossible relationships (cycles)",
+  "requests": [
+    {
+      "id": 1000,
+      "name": "Person A",
+      "birthDate": "1980-01-01",
+      "parent1": { "id": 1001 }
+    },
+    {
+      "id": 1001,
+      "name": "Person B",
+      "birthDate": "1982-01-01",
+      "parent1": { "id": 1000 }
+    }
+  ],
+  "expectedMatch": false,
+  "notes": "Each is other's parent (impossible but should not crash)"
+}
+

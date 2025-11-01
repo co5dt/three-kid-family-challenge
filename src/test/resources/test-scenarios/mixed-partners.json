@@ -1,0 +1,45 @@
+{
+  "description": "Parent with 3 children but from different partners - should NOT match",
+  "requests": [
+    {
+      "id": 400,
+      "name": "Parent Multiple Partners",
+      "birthDate": "1980-01-01",
+      "partner": { "id": 401 }
+    },
+    {
+      "id": 401,
+      "name": "Current Partner",
+      "birthDate": "1982-01-01",
+      "partner": { "id": 400 }
+    },
+    {
+      "id": 402,
+      "name": "Ex Partner",
+      "birthDate": "1979-01-01"
+    },
+    {
+      "id": 410,
+      "name": "Kid from current",
+      "birthDate": "2015-01-01",
+      "parent1": { "id": 400 },
+      "parent2": { "id": 401 }
+    },
+    {
+      "id": 411,
+      "name": "Kid from ex",
+      "birthDate": "2010-01-01",
+      "parent1": { "id": 400 },
+      "parent2": { "id": 402 }
+    },
+    {
+      "id": 412,
+      "name": "Another kid from ex",
+      "birthDate": "2012-01-01",
+      "parent1": { "id": 400 },
+      "parent2": { "id": 402 }
+    }
+  ],
+  "expectedMatch": false
+}
+

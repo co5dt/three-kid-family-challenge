@@ -1,0 +1,20 @@
+{
+  "description": "Invalid self-references",
+  "requests": [
+    {
+      "id": 1100,
+      "name": "Self Partner",
+      "birthDate": "1980-01-01",
+      "partner": { "id": 1100 }
+    },
+    {
+      "id": 1101,
+      "name": "Self Parent",
+      "birthDate": "1980-01-01",
+      "parent1": { "id": 1101 }
+    }
+  ],
+  "expectedMatch": false,
+  "notes": "Should reject or handle gracefully"
+}
+
