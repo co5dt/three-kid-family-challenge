@@ -5,34 +5,50 @@
       "id": 900,
       "name": "Parent Without Kids List",
       "birthDate": "1980-01-01",
-      "partner": { "id": 901 }
+      "partner": {
+        "id": 901
+      }
     },
     {
       "id": 901,
       "name": "Other Parent",
       "birthDate": "1982-01-01",
-      "partner": { "id": 900 }
+      "partner": {
+        "id": 900
+      }
     },
     {
       "id": 910,
       "name": "Orphaned Reference Child 1",
       "birthDate": "2015-01-01",
-      "parent1": { "id": 900 },
-      "parent2": { "id": 901 }
+      "parent1": {
+        "id": 900
+      },
+      "parent2": {
+        "id": 901
+      }
     },
     {
       "id": 911,
       "name": "Orphaned Reference Child 2",
       "birthDate": "2016-01-01",
-      "parent1": { "id": 900 },
-      "parent2": { "id": 901 }
+      "parent1": {
+        "id": 900
+      },
+      "parent2": {
+        "id": 901
+      }
     },
     {
       "id": 912,
       "name": "Orphaned Reference Child 3",
       "birthDate": "2017-01-01",
-      "parent1": { "id": 900 },
-      "parent2": { "id": 901 }
+      "parent1": {
+        "id": 900
+      },
+      "parent2": {
+        "id": 901
+      }
     }
   ],
   "expectedMatch": true,

@@ -10,13 +10,17 @@
       "id": 700,
       "name": "Updated Name",
       "birthDate": "1980-01-01",
-      "partner": { "id": 701 }
+      "partner": {
+        "id": 701
+      }
     },
     {
       "id": 701,
       "name": "New Partner",
       "birthDate": "1982-01-01",
-      "partner": { "id": 700 }
+      "partner": {
+        "id": 700
+      }
     }
   ],
   "expectedMatch": false,

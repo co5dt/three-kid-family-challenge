@@ -19,24 +19,24 @@ import static org.mockito.Mockito.when;
  */
 @ExtendWith(MockitoExtension.class)
 class ExistenceBasedPartnerValidationTest {
-    
+
     @Mock
     private PersonRepository repository;
-    
+
     private ExistenceBasedPartnerValidation strategy;
-    
+
     @BeforeEach
     void setUp() {
         strategy = new ExistenceBasedPartnerValidation();
     }
-    
+
     @Test
     void nullPartnerShouldReturnFalse() {
         Person person = new Person(1L).withPartnerId(null);
         boolean result = strategy.hasValidPartner(person, repository);
         assertThat(result).isFalse();
     }
-    
+
     @Test
     void partnerDoesNotExistShouldReturnFalse() {
         Person person = new Person(1L).withPartnerId(999L);
@@ -44,7 +44,7 @@ class ExistenceBasedPartnerValidationTest {
         boolean result = strategy.hasValidPartner(person, repository);
         assertThat(result).isFalse();
     }
-    
+
     @Test
     void partnerExistsShouldReturnTrue() {
         Person person = new Person(1L).withPartnerId(2L);

@@ -6,13 +6,17 @@
         "id": 200,
         "name": "Parent A",
         "birthDate": "1980-01-01",
-        "partner": { "id": 201 }
+        "partner": {
+          "id": 201
+        }
       },
       {
         "id": 201,
         "name": "Parent B",
         "birthDate": "1981-01-01",
-        "partner": { "id": 200 }
+        "partner": {
+          "id": 200
+        }
       }
     ],
     "twoChildren": [
@@ -20,27 +24,39 @@
         "id": 210,
         "name": "Parent C",
         "birthDate": "1980-01-01",
-        "partner": { "id": 211 }
+        "partner": {
+          "id": 211
+        }
       },
       {
         "id": 211,
         "name": "Parent D",
         "birthDate": "1981-01-01",
-        "partner": { "id": 210 }
+        "partner": {
+          "id": 210
+        }
       },
       {
         "id": 212,
         "name": "Kid 1",
         "birthDate": "2015-01-01",
-        "parent1": { "id": 210 },
-        "parent2": { "id": 211 }
+        "parent1": {
+          "id": 210
+        },
+        "parent2": {
+          "id": 211
+        }
       },
       {
         "id": 213,
         "name": "Kid 2",
         "birthDate": "2016-01-01",
-        "parent1": { "id": 210 },
-        "parent2": { "id": 211 }
+        "parent1": {
+          "id": 210
+        },
+        "parent2": {
+          "id": 211
+        }
       }
     ],
     "fourChildren": [
@@ -48,41 +64,61 @@
         "id": 220,
         "name": "Parent E",
         "birthDate": "1980-01-01",
-        "partner": { "id": 221 }
+        "partner": {
+          "id": 221
+        }
       },
       {
         "id": 221,
         "name": "Parent F",
         "birthDate": "1981-01-01",
-        "partner": { "id": 220 }
+        "partner": {
+          "id": 220
+        }
       },
       {
         "id": 222,
         "name": "Kid 1",
         "birthDate": "2015-01-01",
-        "parent1": { "id": 220 },
-        "parent2": { "id": 221 }
+        "parent1": {
+          "id": 220
+        },
+        "parent2": {
+          "id": 221
+        }
       },
       {
         "id": 223,
         "name": "Kid 2",
         "birthDate": "2016-01-01",
-        "parent1": { "id": 220 },
-        "parent2": { "id": 221 }
+        "parent1": {
+          "id": 220
+        },
+        "parent2": {
+          "id": 221
+        }
       },
       {
         "id": 224,
         "name": "Kid 3",
         "birthDate": "2017-01-01",
-        "parent1": { "id": 220 },
-        "parent2": { "id": 221 }
+        "parent1": {
+          "id": 220
+        },
+        "parent2": {
+          "id": 221
+        }
       },
       {
         "id": 225,
         "name": "Kid 4",
         "birthDate": "2018-01-01",
-        "parent1": { "id": 220 },
-        "parent2": { "id": 221 }
+        "parent1": {
+          "id": 220
+        },
+        "parent2": {
+          "id": 221
+        }
       }
     ]
   },

@@ -13,14 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  * <p>NoOp approach: Keep all references, even to ignored persons.</p>
  */
 class NoOpDeleteStrategyTest {
-    
+
     private NoOpDeleteStrategy strategy;
-    
+
     @BeforeEach
     void setUp() {
         strategy = new NoOpDeleteStrategy();
     }
-    
+
     @Test
     void ignoredReferencesShouldKeepAll() {
         Person person = new Person(1L)
@@ -29,7 +29,7 @@ class NoOpDeleteStrategyTest {
                 .withParent2Id(997L)
                 .withChildrenIds(Set.of(996L, 995L));
         Set<Long> ignoredIds = Set.of(999L, 998L, 997L, 996L, 995L);
-        
+
         strategy.cleanupReferences(person, ignoredIds);
         assertThat(person.getPartnerId()).isEqualTo(999L);
         assertThat(person.getParent1Id()).isEqualTo(998L);

@@ -4,22 +4,34 @@
     {
       "id": 500,
       "birthDate": "1980-01-01",
-      "partner": { "id": 501 }
+      "partner": {
+        "id": 501
+      }
     },
     {
       "id": 501,
-      "partner": { "id": 500 }
+      "partner": {
+        "id": 500
+      }
     },
     {
       "id": 502,
-      "parent1": { "id": 500 },
-      "parent2": { "id": 501 }
+      "parent1": {
+        "id": 500
+      },
+      "parent2": {
+        "id": 501
+      }
     },
     {
       "id": 503,
       "name": "Kid Without Birthday",
-      "parent1": { "id": 500 },
-      "parent2": { "id": 501 }
+      "parent1": {
+        "id": 500
+      },
+      "parent2": {
+        "id": 501
+      }
     }
   ],
   "expectedMatch": false,

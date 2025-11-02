@@ -14,14 +14,14 @@ import java.util.stream.Stream;
 
 /**
  * Loads test scenarios from JSON files in {@code src/test/resources/test-scenarios/}.
- * 
+ *
  * <p>Auto-discovers all .json files in the test-scenarios directory.</p>
  */
 public class TestDataLoader {
 
     private static final ObjectMapper mapper = new ObjectMapper()
             .registerModule(new JavaTimeModule());
-    
+
     private static final String SCENARIOS_PATH = "classpath:test-scenarios/*.json";
 
     public static JsonNode load(String filename) throws IOException {

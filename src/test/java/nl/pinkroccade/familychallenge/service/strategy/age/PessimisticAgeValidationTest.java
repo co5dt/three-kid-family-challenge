@@ -13,21 +13,21 @@ import static org.assertj.core.api.Assertions.assertThat;
  * <p>Pessimistic approach: Missing data means person is NOT under 18.</p>
  */
 class PessimisticAgeValidationTest {
-    
+
     private PessimisticAgeValidation strategy;
-    
+
     @BeforeEach
     void setUp() {
         strategy = new PessimisticAgeValidation();
     }
-    
+
     @Test
     void nullBirthDateShouldReturnFalse() {
         Person person = new Person(1L).withBirthDate(null);
         boolean result = strategy.isUnder18(person);
         assertThat(result).isFalse();
     }
-    
+
     @Test
     void under18ShouldReturnTrue() {
         LocalDate birthDate = LocalDate.now().minusYears(10);
@@ -35,7 +35,7 @@ class PessimisticAgeValidationTest {
         boolean result = strategy.isUnder18(person);
         assertThat(result).isTrue();
     }
-    
+
     @Test
     void exactly18ShouldReturnFalse() {
         LocalDate birthDate = LocalDate.now().minusYears(18);
@@ -43,7 +43,7 @@ class PessimisticAgeValidationTest {
         boolean result = strategy.isUnder18(person);
         assertThat(result).isFalse();
     }
-    
+
     @Test
     void over18ShouldReturnFalse() {
         LocalDate birthDate = LocalDate.now().minusYears(25);
@@ -51,7 +51,7 @@ class PessimisticAgeValidationTest {
         boolean result = strategy.isUnder18(person);
         assertThat(result).isFalse();
     }
-    
+
     @Test
     void futureBirthDateShouldReturnFalse() {
         LocalDate birthDate = LocalDate.now().plusDays(1);

@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Incoming POST request payload for person data.
- *
+ * <p>
  * Represents the JSON structure received from clients.
  * All relationship fields are optional as records may be incomplete.
  */

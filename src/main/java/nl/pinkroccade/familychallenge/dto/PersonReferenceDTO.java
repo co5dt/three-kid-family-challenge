@@ -5,7 +5,7 @@ package nl.pinkroccade.familychallenge.dto;
  * Used in JSON payloads to represent relationships.
  */
 public record PersonReferenceDTO(Long id) {
-    
+
     public PersonReferenceDTO {
         if (id == null) {
             throw new IllegalArgumentException("Person reference ID cannot be null");

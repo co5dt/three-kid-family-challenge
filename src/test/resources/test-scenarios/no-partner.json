@@ -10,19 +10,25 @@
       "id": 101,
       "name": "Kid 1",
       "birthDate": "2015-01-01",
-      "parent1": { "id": 100 }
+      "parent1": {
+        "id": 100
+      }
     },
     {
       "id": 102,
       "name": "Kid 2",
       "birthDate": "2016-01-01",
-      "parent1": { "id": 100 }
+      "parent1": {
+        "id": 100
+      }
     },
     {
       "id": 103,
       "name": "Kid 3",
       "birthDate": "2017-01-01",
-      "parent1": { "id": 100 }
+      "parent1": {
+        "id": 100
+      }
     }
   ],
   "expectedMatch": false

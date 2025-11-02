@@ -49,7 +49,7 @@ public class PersonController {
      * </ul>
      * </p>
      *
-     * @param request the person data
+     * @param request  the person data
      * @param response the HTTP response (used for setting custom status 444)
      * @return the list of matching persons, or {@code null} if no matches are found
      */

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Maps between Person domain objects and DTOs.
  */
 public class PersonMapper {
-    
+
     /**
      * Converts PersonRequestDTO to Person domain object.
      */
@@ -26,17 +26,17 @@ public class PersonMapper {
         person.setParent1Id(dto.parent1() != null ? dto.parent1().id() : null);
         person.setParent2Id(dto.parent2() != null ? dto.parent2().id() : null);
         person.setPartnerId(dto.partner() != null ? dto.partner().id() : null);
-        
+
         if (dto.children() != null) {
             Set<Long> childrenIds = dto.children().stream()
                     .map(PersonReferenceDTO::id)
                     .collect(Collectors.toSet());
             person.setChildrenIds(childrenIds);
         }
-        
+
         return person;
     }
-    
+
     /**
      * Converts Person domain object to PersonResponseDTO.
      * Resolves references to other entities via repository.
@@ -52,7 +52,7 @@ public class PersonMapper {
                 toReferenceList(person.getChildrenIds())
         );
     }
-    
+
     private static PersonReferenceDTO toReference(Long id, PersonRepository repository) {
         if (id == null) {
             return null;
@@ -60,7 +60,7 @@ public class PersonMapper {
         // Return reference with just ID - name/details fetched if needed
         return new PersonReferenceDTO(id);
     }
-    
+
     private static List<PersonReferenceDTO> toReferenceList(Set<Long> ids) {
         if (ids == null || ids.isEmpty()) {
             return List.of();

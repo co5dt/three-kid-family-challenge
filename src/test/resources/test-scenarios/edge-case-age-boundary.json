@@ -6,34 +6,50 @@
       "id": 800,
       "name": "Parent 1",
       "birthDate": "1980-01-01",
-      "partner": { "id": 801 }
+      "partner": {
+        "id": 801
+      }
     },
     {
       "id": 801,
       "name": "Parent 2",
       "birthDate": "1982-01-01",
-      "partner": { "id": 800 }
+      "partner": {
+        "id": 800
+      }
     },
     {
       "id": 810,
       "name": "Child exactly 18",
       "birthDate": "2007-11-01",
-      "parent1": { "id": 800 },
-      "parent2": { "id": 801 }
+      "parent1": {
+        "id": 800
+      },
+      "parent2": {
+        "id": 801
+      }
     },
     {
       "id": 811,
       "name": "Child 17y 364d",
       "birthDate": "2007-11-02",
-      "parent1": { "id": 800 },
-      "parent2": { "id": 801 }
+      "parent1": {
+        "id": 800
+      },
+      "parent2": {
+        "id": 801
+      }
     },
     {
       "id": 812,
       "name": "Child 19",
       "birthDate": "2006-01-01",
-      "parent1": { "id": 800 },
-      "parent2": { "id": 801 }
+      "parent1": {
+        "id": 800
+      },
+      "parent2": {
+        "id": 801
+      }
     }
   ],
   "expectedMatch": true,

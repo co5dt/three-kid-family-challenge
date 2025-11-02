@@ -12,7 +12,11 @@
       "birthDate": "1982-01-01"
     }
   ],
-  "deleteRequest": [5000, 5002, 5003],
+  "deleteRequest": [
+    5000,
+    5002,
+    5003
+  ],
   "afterDeleteAttempts": [
     {
       "id": 5000,
@@ -25,7 +29,13 @@
       "birthDate": "1985-01-01"
     }
   ],
-  "expectedIgnoredIds": [5000, 5002, 5003],
-  "expectedStoredIds": [5001]
+  "expectedIgnoredIds": [
+    5000,
+    5002,
+    5003
+  ],
+  "expectedStoredIds": [
+    5001
+  ]
 }
 
