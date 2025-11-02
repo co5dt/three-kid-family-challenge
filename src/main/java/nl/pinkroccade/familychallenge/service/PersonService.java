@@ -18,8 +18,10 @@ import java.util.Set;
  * Ensures bidirectional integrity of relationships.
  *
  * <p><b>Strategy-based Design (ADR-04):</b></p>
- * <p>Uses {@link DataCleanupStrategy} to handle reference cleanup when processing
- * persons with references to deleted/ignored IDs.</p>
+ * <ul>
+ *   <li>Uses {@link DataCleanupStrategy} for reference cleanup of deleted/ignored persons</li>
+ *   <li>Delegates pattern matching to {@link PatternMatchingService} (uses 3 configurable strategies)</li>
+ * </ul>
  */
 @Service
 public class PersonService {
@@ -56,8 +58,7 @@ public class PersonService {
         // ASSUMPTION: ADR-04 #6 - Delegated to DataCleanupStrategy
         // Clean up any references to ignored IDs before saving
         dataCleanupStrategy.cleanupReferences(person, repository.getIgnoredIds());
-
-        // Save the person
+        
         Person saved = repository.save(person);
         if (saved == null) {
             log.warn("Failed to save person ID {}", request.id());

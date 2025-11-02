@@ -13,17 +13,17 @@ import java.util.Set;
 /**
  * Service to detect if a person matches the three-kid family pattern.
  *
- * <p><b>Pattern requirements:</b></p>
+ * <p><b>Pattern requirements (strategy-dependent):</b></p>
  * <ul>
- *   <li>Person has a partner</li>
- *   <li>Person has exactly 3 children</li>
- *   <li>All 3 children list the same partner as either parent1 or parent2</li>
- *   <li>At least one of those children is under 18 years old</li>
+ *   <li>Person has a valid partner (interpretation depends on {@link PartnerValidationStrategy})</li>
+ *   <li>Person has exactly 3 children with partner (interpretation depends on {@link ChildCountStrategy})</li>
+ *   <li>All 3 children list both person and partner as parents</li>
+ *   <li>At least one child is under 18 (interpretation depends on {@link AgeValidationStrategy})</li>
  * </ul>
  *
  * <p><b>Strategy-based Design (ADR-04):</b></p>
- * <p>This service uses pluggable strategies to handle requirement ambiguities.
- * Strategies can be configured in application.properties without code changes.</p>
+ * <p>Uses three pluggable strategies to handle requirement ambiguities.
+ * Strategies are configured in application.properties.</p>
  */
 @Service
 public class PatternMatchingService {
