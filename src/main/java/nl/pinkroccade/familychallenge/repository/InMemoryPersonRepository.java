@@ -58,5 +58,10 @@ public class InMemoryPersonRepository implements PersonRepository {
     public Set<Long> getIgnoredIds() {
         return Set.copyOf(ignoredIds);
     }
+
+    public void clear() {
+        store.clear();
+        ignoredIds.clear();
+    }
 }
 
