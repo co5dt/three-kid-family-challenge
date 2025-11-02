@@ -6,6 +6,7 @@ import nl.pinkroccade.familychallenge.service.strategy.cleanup.DataCleanupStrate
 import nl.pinkroccade.familychallenge.service.strategy.partner.PartnerValidationStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class FamilyChallengeConfiguration {
     }
 
     @Bean
+    @Primary
     public PartnerValidationStrategy partnerValidationStrategy(List<PartnerValidationStrategy> strategies) {
 
         return strategies.stream()
@@ -33,6 +35,7 @@ public class FamilyChallengeConfiguration {
     }
 
     @Bean
+    @Primary
     public ChildCountStrategy childCountStrategy(List<ChildCountStrategy> strategies) {
 
         return strategies.stream()
@@ -46,6 +49,7 @@ public class FamilyChallengeConfiguration {
     }
 
     @Bean
+    @Primary
     public AgeValidationStrategy ageValidationStrategy(List<AgeValidationStrategy> strategies) {
 
         return strategies.stream()
@@ -59,6 +63,7 @@ public class FamilyChallengeConfiguration {
     }
 
     @Bean
+    @Primary
     public DataCleanupStrategy dataCleanupStrategy(List<DataCleanupStrategy> strategies) {
 
         return strategies.stream()
