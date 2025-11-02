@@ -1,4 +1,4 @@
-package nl.pinkroccade.familychallenge.service.strategy;
+package nl.pinkroccade.familychallenge.service.strategy.age;
 
 import nl.pinkroccade.familychallenge.domain.Person;
 
@@ -17,8 +17,8 @@ import nl.pinkroccade.familychallenge.domain.Person;
  *   <li><b>Optimistic:</b> Children with null birthDate are assumed to be under 18</li>
  * </ul>
  * 
- * @see nl.pinkroccade.familychallenge.service.strategy.PessimisticAgeValidation
- * @see nl.pinkroccade.familychallenge.service.strategy.OptimisticAgeValidation
+ * @see PessimisticAgeValidation
+ * @see OptimisticAgeValidation
  */
 public interface AgeValidationStrategy {
     

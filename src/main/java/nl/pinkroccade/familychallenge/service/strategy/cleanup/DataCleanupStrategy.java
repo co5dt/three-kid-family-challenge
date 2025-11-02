@@ -1,4 +1,4 @@
-package nl.pinkroccade.familychallenge.service.strategy;
+package nl.pinkroccade.familychallenge.service.strategy.cleanup;
 
 import nl.pinkroccade.familychallenge.domain.Person;
 
@@ -19,8 +19,8 @@ import java.util.Set;
  *   <li><b>NoOp:</b> References are left as-is (forward references remain)</li>
  * </ul>
  * 
- * @see nl.pinkroccade.familychallenge.service.strategy.CascadeDeleteStrategy
- * @see nl.pinkroccade.familychallenge.service.strategy.NoOpDeleteStrategy
+ * @see CascadeDeleteStrategy
+ * @see NoOpDeleteStrategy
  */
 public interface DataCleanupStrategy {
     

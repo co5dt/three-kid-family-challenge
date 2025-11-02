@@ -1,4 +1,4 @@
-package nl.pinkroccade.familychallenge.service.strategy;
+package nl.pinkroccade.familychallenge.service.strategy.partner;
 
 import nl.pinkroccade.familychallenge.domain.Person;
 import nl.pinkroccade.familychallenge.repository.PersonRepository;
@@ -16,8 +16,8 @@ import nl.pinkroccade.familychallenge.repository.PersonRepository;
  *   <li><b>Existence-based:</b> The referenced partner must exist in the repository</li>
  * </ul>
  * 
- * @see nl.pinkroccade.familychallenge.service.strategy.ReferenceBasedPartnerValidation
- * @see nl.pinkroccade.familychallenge.service.strategy.ExistenceBasedPartnerValidation
+ * @see ReferenceBasedPartnerValidation
+ * @see ExistenceBasedPartnerValidation
  */
 public interface PartnerValidationStrategy {
     

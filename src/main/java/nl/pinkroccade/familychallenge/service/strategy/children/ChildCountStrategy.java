@@ -1,4 +1,4 @@
-package nl.pinkroccade.familychallenge.service.strategy;
+package nl.pinkroccade.familychallenge.service.strategy.children;
 
 import nl.pinkroccade.familychallenge.domain.Person;
 import nl.pinkroccade.familychallenge.repository.PersonRepository;
@@ -18,8 +18,8 @@ import java.util.Set;
  *   <li><b>Inclusive:</b> The partner can have additional children with other people (supports blended families)</li>
  * </ul>
  * 
- * @see nl.pinkroccade.familychallenge.service.strategy.ExclusiveChildCountStrategy
- * @see nl.pinkroccade.familychallenge.service.strategy.InclusiveChildCountStrategy
+ * @see ExclusiveChildCountStrategy
+ * @see InclusiveChildCountStrategy
  */
 public interface ChildCountStrategy {
     
