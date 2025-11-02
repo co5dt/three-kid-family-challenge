@@ -8,10 +8,7 @@ import nl.pinkroccade.familychallenge.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -69,5 +66,23 @@ public class PersonController {
 
         log.debug("Found {} matches - returning HTTP 200", matches.size());
         return ResponseEntity.ok(matches);
+    }
+
+    /**
+     * Deletes persons by their IDs and adds them to the ignore list.
+     * <p>
+     * Deleted IDs are remembered forever - if they show up in future requests,
+     * they will be silently ignored for both storage and matching.
+     * </p>
+     *
+     * @param ids the list of person IDs to delete
+     * @return HTTP 200 OK
+     */
+    @DeleteMapping
+    public ResponseEntity<Void> deletePersons(@RequestBody List<Long> ids) {
+        log.info("DELETE /api/v1/people - IDs: {}", ids);
+        personService.deletePersons(ids);
+        log.debug("Successfully deleted {} person(s)", ids.size());
+        return ResponseEntity.ok().build();
     }
 }

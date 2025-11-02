@@ -58,7 +58,7 @@ public class PersonService {
         // ASSUMPTION: ADR-04 #6 - Delegated to DataCleanupStrategy
         // Clean up any references to ignored IDs before saving
         dataCleanupStrategy.cleanupReferences(person, repository.getIgnoredIds());
-        
+
         Person saved = repository.save(person);
         if (saved == null) {
             log.warn("Failed to save person ID {}", request.id());
