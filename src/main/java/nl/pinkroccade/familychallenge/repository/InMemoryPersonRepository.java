@@ -13,6 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * In-memory implementation of PersonRepository using ConcurrentHashMap.
  * 
  * <p>Thread-safe for concurrent access. Data is not persisted.</p>
+ * <p>This repository handles pure data storage operations. Reference cleanup
+ * is the responsibility of the service layer.</p>
  */
 @Repository
 public class InMemoryPersonRepository implements PersonRepository {
@@ -50,6 +52,11 @@ public class InMemoryPersonRepository implements PersonRepository {
     @Override
     public boolean isIgnored(Long id) {
         return ignoredIds.contains(id);
+    }
+    
+    @Override
+    public Set<Long> getIgnoredIds() {
+        return Set.copyOf(ignoredIds);
     }
 }
 

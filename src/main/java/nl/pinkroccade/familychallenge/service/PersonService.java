@@ -5,15 +5,21 @@ import nl.pinkroccade.familychallenge.dto.PersonRequestDTO;
 import nl.pinkroccade.familychallenge.dto.PersonResponseDTO;
 import nl.pinkroccade.familychallenge.mapper.PersonMapper;
 import nl.pinkroccade.familychallenge.repository.PersonRepository;
+import nl.pinkroccade.familychallenge.service.strategy.cleanup.DataCleanupStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Service for processing person records and managing relationships.
  * Ensures bidirectional integrity of relationships.
+ * 
+ * <p><b>Strategy-based Design (ADR-04):</b></p>
+ * <p>Uses {@link DataCleanupStrategy} to handle reference cleanup when processing 
+ * persons with references to deleted/ignored IDs.</p>
  */
 @Service
 public class PersonService {
@@ -22,10 +28,15 @@ public class PersonService {
     
     private final PersonRepository repository;
     private final PatternMatchingService patternMatchingService;
+    private final DataCleanupStrategy dataCleanupStrategy;
     
-    public PersonService(PersonRepository repository, PatternMatchingService patternMatchingService) {
+    public PersonService(
+            PersonRepository repository, 
+            PatternMatchingService patternMatchingService,
+            DataCleanupStrategy dataCleanupStrategy) {
         this.repository = repository;
         this.patternMatchingService = patternMatchingService;
+        this.dataCleanupStrategy = dataCleanupStrategy;
     }
     
     /**
@@ -42,12 +53,18 @@ public class PersonService {
 
         Person person = PersonMapper.toDomain(request);
         
+        // ASSUMPTION: ADR-04 #6 - Delegated to DataCleanupStrategy
+        // Clean up any references to ignored IDs before saving
+        dataCleanupStrategy.cleanupReferences(person, repository.getIgnoredIds());
+        
         // Save the person
         Person saved = repository.save(person);
         if (saved == null) {
             log.warn("Failed to save person ID {}", request.id());
             return List.of();
         }
+        
+        // ASSUMPTION: ADR-04 #5 - Partner relationships are bidirectional
         repairBidirectionalIntegrity(saved);
 
         return findAndConvertMatches();
@@ -112,6 +129,24 @@ public class PersonService {
             if (needsSave) {
                 repository.save(child);
             }
+        });
+    }
+    
+    /**
+     * Deletes persons by their IDs and cleans up references to them.
+     * 
+     * @param ids the IDs of persons to delete
+     */
+    public void deletePersons(List<Long> ids) {
+        // First delete from repository (removes from store and marks as ignored)
+        repository.deleteByIds(ids);
+        
+        // ASSUMPTION: ADR-04 #6 - Delegated to DataCleanupStrategy
+        // Clean up references in all remaining persons
+        Set<Long> idsToCleanup = Set.copyOf(ids);
+        repository.findAll().forEach(person -> {
+            dataCleanupStrategy.cleanupReferences(person, idsToCleanup);
+            repository.save(person);
         });
     }
     

@@ -2,12 +2,12 @@ package nl.pinkroccade.familychallenge.service;
 
 import nl.pinkroccade.familychallenge.domain.Person;
 import nl.pinkroccade.familychallenge.repository.PersonRepository;
+import nl.pinkroccade.familychallenge.service.strategy.age.AgeValidationStrategy;
+import nl.pinkroccade.familychallenge.service.strategy.children.ChildCountStrategy;
+import nl.pinkroccade.familychallenge.service.strategy.partner.PartnerValidationStrategy;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -20,14 +20,28 @@ import java.util.Set;
  *   <li>All 3 children list the same partner as either parent1 or parent2</li>
  *   <li>At least one of those children is under 18 years old</li>
  * </ul>
+ * 
+ * <p><b>Strategy-based Design (ADR-04):</b></p>
+ * <p>This service uses pluggable strategies to handle requirement ambiguities.
+ * Strategies can be configured in application.properties without code changes.</p>
  */
 @Service
 public class PatternMatchingService {
     
     private final PersonRepository repository;
+    private final PartnerValidationStrategy partnerValidationStrategy;
+    private final ChildCountStrategy childCountStrategy;
+    private final AgeValidationStrategy ageValidationStrategy;
     
-    public PatternMatchingService(PersonRepository repository) {
+    public PatternMatchingService(
+            PersonRepository repository,
+            PartnerValidationStrategy partnerValidationStrategy,
+            ChildCountStrategy childCountStrategy,
+            AgeValidationStrategy ageValidationStrategy) {
         this.repository = repository;
+        this.partnerValidationStrategy = partnerValidationStrategy;
+        this.childCountStrategy = childCountStrategy;
+        this.ageValidationStrategy = ageValidationStrategy;
     }
     
     /**
@@ -43,69 +57,41 @@ public class PatternMatchingService {
     }
     
     /**
-     * Checks if a person matches the pattern.
+     * Checks if a person matches the pattern using configured strategies.
      * 
      * @param person The person to check
      * @return true if person matches the pattern
      */
     private boolean matchesPattern(Person person) {
-        // Must have a partner
-        if (person.getPartnerId() == null) {
+        // ASSUMPTION: ADR-04 #3 - Delegated to PartnerValidationStrategy
+        // Must have a valid partner according to configured strategy
+        if (!partnerValidationStrategy.hasValidPartner(person, repository)) {
             return false;
         }
         
-        // Partner must exist in repository
         Long partnerId = person.getPartnerId();
-        if (repository.findById(partnerId).isEmpty()) {
+        
+        // ASSUMPTION: ADR-04 #2 - Delegated to ChildCountStrategy
+        // Must have valid children according to configured strategy
+        ChildCountStrategy.ValidationResult childValidation = 
+                childCountStrategy.validateChildren(person, partnerId, repository);
+        
+        if (!childValidation.valid()) {
             return false;
         }
         
-        // Must have exactly 3 children
-        Set<Long> childrenIds = person.getChildrenIds();
-        if (childrenIds == null || childrenIds.size() != 3) {
-            return false;
-        }
-        boolean hasChildUnder18 = false;
+        Set<Long> validChildrenIds = childValidation.validChildrenIds();
         
-        // Check all 3 children
-        for (Long childId : childrenIds) {
+        // ASSUMPTION: ADR-04 #1 - Delegated to AgeValidationStrategy
+        // At least one child must be under 18 according to configured strategy
+        for (Long childId : validChildrenIds) {
             Person child = repository.findById(childId).orElse(null);
-            
-            if (child == null) {
-                return false; // Child doesn't exist
-            }
-            
-            // Child must list this person AND the partner as parents
-            if (!isParentOf(person.getId(), child) || !isParentOf(partnerId, child)) {
-                return false;
-            }
-            
-            // Check if at least one child is under 18
-            if (!hasChildUnder18 && isUnder18(child)) {
-                hasChildUnder18 = true;
+            if (child != null && ageValidationStrategy.isUnder18(child)) {
+                return true; // Found at least one child under 18
             }
         }
-        return hasChildUnder18;
-    }
-    
-    /**
-     * Checks if personId is listed as parent1 or parent2 of the child.
-     */
-    private boolean isParentOf(Long personId, Person child) {
-        return personId.equals(child.getParent1Id()) || personId.equals(child.getParent2Id());
-    }
-    
-    /**
-     * Checks if a person is under 18 years old.
-     */
-    private boolean isUnder18(Person person) {
-        LocalDate now = LocalDate.now();
-        LocalDate birthDate = person.getBirthDate();
-        Objects.requireNonNull(birthDate, "Birth date required");
-        if (birthDate.isAfter(now)) {
-            throw new IllegalArgumentException("Birth date cannot be in future");
-        }
-        return Period.between(birthDate, now).getYears() < 18;
+        
+        return false; // No child under 18 found
     }
 }
 
