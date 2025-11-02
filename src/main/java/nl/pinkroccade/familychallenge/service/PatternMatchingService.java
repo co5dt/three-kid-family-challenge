@@ -46,7 +46,7 @@ public class PatternMatchingService {
 
     /**
      * Finds all people who match the three-kid family pattern.
-     * Time complexity: O(n * k) where n = total people, k = children per person (max 3)
+     * Time complexity: O(n * k) where n = total people, k = children per person
      *
      * @return List of people who match the pattern
      */
