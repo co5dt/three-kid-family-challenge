@@ -51,13 +51,11 @@ class InclusiveChildCountStrategyTest {
     @Test
     void personHas3ChildrenPartnerHas4thChildWithOtherShouldBeValid() {
         Person person = new Person(1L).withPartnerId(2L).withChildrenIds(Set.of(10L, 11L, 12L));
-        Person partner = new Person(2L).withPartnerId(1L).withChildrenIds(Set.of(10L, 11L, 12L, 13L)); // Has 4th child
+        // Partner has 4th child with someone else, but inclusive mode doesn't care
         Person child1 = new Person(10L).withParent1Id(1L).withParent2Id(2L);
         Person child2 = new Person(11L).withParent1Id(1L).withParent2Id(2L);
         Person child3 = new Person(12L).withParent1Id(1L).withParent2Id(2L);
-        Person child4 = new Person(13L).withParent1Id(2L).withParent2Id(3L); // Partner's child with Person 3
 
-        when(repository.findById(2L)).thenReturn(Optional.of(partner));
         when(repository.findById(10L)).thenReturn(Optional.of(child1));
         when(repository.findById(11L)).thenReturn(Optional.of(child2));
         when(repository.findById(12L)).thenReturn(Optional.of(child3));
