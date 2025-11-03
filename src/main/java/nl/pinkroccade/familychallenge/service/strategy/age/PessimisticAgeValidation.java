@@ -9,17 +9,20 @@ import java.time.Period;
 /**
  * Pessimistic age validation strategy.
  *
- * <p><b>Current assumption from ADR-04:</b> Children with null birthDate are treated
+ * <p><b>CHOSEN INTERPRETATION (ADR-04 #4 - OTI decision):</b> Children with null birthDate are treated
  * as "unknown age" and don't satisfy the "under 18" criterion.</p>
  *
  * <p>This conservative approach requires explicit proof of age to match the pattern.</p>
+ *
+ * <p><b>Rationale:</b> Given confirmed "data is correct as received," null values are
+ * intentional and should not be assumed to satisfy age requirements.</p>
  */
 @Component("pessimisticAgeValidation")
 public class PessimisticAgeValidation implements AgeValidationStrategy {
 
     @Override
     public boolean isUnder18(Person person) {
-        // ASSUMPTION: ADR-04 #1 - Pessimistic interpretation
+        // DECISION: ADR-04 #4 (OTI - chosen) - Pessimistic interpretation
         // Children with null birthDate don't satisfy the "under 18" criterion
         LocalDate birthDate = person.getBirthDate();
         if (birthDate == null) {

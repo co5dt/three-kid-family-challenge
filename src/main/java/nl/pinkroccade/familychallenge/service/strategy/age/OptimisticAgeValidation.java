@@ -9,18 +9,20 @@ import java.time.Period;
 /**
  * Optimistic age validation strategy.
  *
- * <p><b>Alternative interpretation from ADR-04:</b> Children with null birthDate
+ * <p><b>ALTERNATIVE INTERPRETATION (ADR-04 #4 - NOT chosen):</b> Children with null birthDate
  * are assumed to be under 18 (optimistic assumption).</p>
  *
  * <p>This lenient approach allows pattern matching to succeed even with incomplete data,
  * assuming missing birth dates indicate younger family members.</p>
+ *
+ * <p><b>Note:</b> This strategy remains available for reference but is not the chosen interpretation.</p>
  */
 @Component("optimisticAgeValidation")
 public class OptimisticAgeValidation implements AgeValidationStrategy {
 
     @Override
     public boolean isUnder18(Person person) {
-        // ALTERNATIVE: ADR-04 #1 - Optimistic interpretation
+        // ALTERNATIVE: ADR-04 #4 (NOT chosen) - Optimistic interpretation
         // Children with null birthDate are assumed to be under 18
 
         LocalDate birthDate = person.getBirthDate();

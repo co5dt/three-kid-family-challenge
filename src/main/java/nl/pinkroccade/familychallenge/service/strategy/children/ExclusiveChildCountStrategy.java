@@ -10,19 +10,22 @@ import java.util.Set;
 /**
  * Exclusive child count validation strategy.
  *
- * <p><b>Current assumption from ADR-04:</b> Person must have exactly 3 children,
+ * <p><b>ALTERNATIVE INTERPRETATION (ADR-04 #2 - NOT chosen):</b> Person must have exactly 3 children,
  * all listing the same partner as parent. Additionally, the PARTNER must ONLY have
  * these 3 children (no children with other partners).</p>
  *
  * <p>This "nuclear family" interpretation does not support blended families where
  * the partner might have children from previous relationships.</p>
+ *
+ * <p><b>Note:</b> This strategy remains available for reference but is not the chosen interpretation.
+ * See ADR-04 Feedback section for details.</p>
  */
 @Component("exclusiveChildCountStrategy")
 public class ExclusiveChildCountStrategy implements ChildCountStrategy {
 
     @Override
     public ValidationResult validateChildren(Person person, Long partnerId, PersonRepository repository) {
-        // ASSUMPTION: ADR-04 #2 - Exclusive interpretation
+        // ALTERNATIVE: ADR-04 #2 (NOT chosen) - Exclusive interpretation
         // Person must have exactly 3 children, all with the same partner
         // AND partner must only have these same 3 children
 

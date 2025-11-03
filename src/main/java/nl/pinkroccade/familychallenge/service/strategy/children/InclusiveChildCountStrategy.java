@@ -10,19 +10,22 @@ import java.util.Set;
 /**
  * Inclusive child count validation strategy.
  *
- * <p><b>Alternative interpretation from ADR-04:</b> Person must have exactly 3 children,
+ * <p><b>CHOSEN INTERPRETATION (ADR-04 #2 - confirmed):</b> Person must have exactly 3 children,
  * all listing the same partner as parent. The PARTNER can have additional children with
  * OTHER people (blended family support).</p>
  *
  * <p>This interpretation focuses only on the person being evaluated having exactly 3 children,
  * without restricting the partner's other relationships. Supports real-world blended families.</p>
+ *
+ * <p><b>Rationale:</b> The requirement "has exactly 3 children" refers to the person being evaluated,
+ * not their partner. The assignment never constrains the partner's total child count.</p>
  */
 @Component("inclusiveChildCountStrategy")
 public class InclusiveChildCountStrategy implements ChildCountStrategy {
 
     @Override
     public ValidationResult validateChildren(Person person, Long partnerId, PersonRepository repository) {
-        // ALTERNATIVE: ADR-04 #2 - Inclusive interpretation
+        // DECISION: ADR-04 #2 (confirmed) - Inclusive interpretation
         // Person must have exactly 3 children, all with the same partner
         // Partner CAN have additional children with other people
 

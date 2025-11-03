@@ -56,7 +56,7 @@ public class PersonService {
 
         Person person = PersonMapper.toDomain(request);
 
-        // ASSUMPTION: ADR-04 #6 - Delegated to DataCleanupStrategy
+        // DECISION: ADR-04 #7 (Implementation detail) - Delegated to DataCleanupStrategy
         // Clean up any references to ignored IDs before saving
         dataCleanupStrategy.cleanupReferences(person, repository.getIgnoredIds());
 
@@ -66,7 +66,7 @@ public class PersonService {
             return List.of();
         }
 
-        // ASSUMPTION: ADR-04 #5 - Partner relationships are bidirectional
+        // DECISION: ADR-04 #6 (OTI - chosen) - Partner relationships are bidirectional
         repairBidirectionalIntegrity(saved.get());
 
         return findAndConvertMatches();
@@ -143,7 +143,7 @@ public class PersonService {
         // First delete from repository (removes from store and marks as ignored)
         repository.deleteByIds(ids);
 
-        // ASSUMPTION: ADR-04 #6 - Delegated to DataCleanupStrategy
+        // DECISION: ADR-04 #7 (Implementation detail) - Delegated to DataCleanupStrategy
         // Clean up references in all remaining persons
         Set<Long> idsToCleanup = Set.copyOf(ids);
         repository.findAll().forEach(person -> {

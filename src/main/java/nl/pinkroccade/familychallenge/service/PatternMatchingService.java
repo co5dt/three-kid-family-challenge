@@ -63,7 +63,7 @@ public class PatternMatchingService {
      * @return true if person matches the pattern
      */
     private boolean matchesPattern(Person person) {
-        // ASSUMPTION: ADR-04 #3 - Delegated to PartnerValidationStrategy
+        // DECISION: ADR-04 #3 (confirmed) - Delegated to PartnerValidationStrategy
         // Must have a valid partner according to configured strategy
         if (!partnerValidationStrategy.hasValidPartner(person, repository)) {
             return false;
@@ -71,7 +71,7 @@ public class PatternMatchingService {
 
         Long partnerId = person.getPartnerId();
 
-        // ASSUMPTION: ADR-04 #2 - Delegated to ChildCountStrategy
+        // DECISION: ADR-04 #2 (confirmed) - Delegated to ChildCountStrategy
         // Must have valid children according to configured strategy
         ChildCountStrategy.ValidationResult childValidation =
                 childCountStrategy.validateChildren(person, partnerId, repository);
@@ -82,7 +82,7 @@ public class PatternMatchingService {
 
         Set<Long> validChildrenIds = childValidation.validChildrenIds();
 
-        // ASSUMPTION: ADR-04 #1 - Delegated to AgeValidationStrategy
+        // DECISION: ADR-04 #4 (OTI - chosen) - Delegated to AgeValidationStrategy
         // At least one child must be under 18 according to configured strategy
         for (Long childId : validChildrenIds) {
             Person child = repository.findById(childId).orElse(null);

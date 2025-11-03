@@ -1,6 +1,6 @@
 # ADR 04: Handling Requirement Ambiguities Through Configurable Design
 
-**Status:** Accepted
+**Status:** Implemented (feedback received and incorporated)
 
 ---
 
@@ -113,8 +113,10 @@ pattern matching?
 
 ```json
 {
-    "id": 10,
-    "partner": {"id": 999}
+  "id": 10,
+  "partner": {
+    "id": 999
+  }
 }
 ```
 
@@ -235,3 +237,27 @@ Use these comments to mark assumption-dependent code:
 // ASSUMPTION: [Question #X from ADR-04] - [Brief description]
 // Alternative: [What might change]
 ```
+
+---
+
+## Feedback and Final Decisions
+
+**Date:** November 3, 2025
+
+**Guidance:** "Assume data is valid and correct. Ambiguities are intentional. For OTI: state issue, list options,
+explain choice."
+
+### Final Decisions
+
+| # | Issue                    | Decision                                                         | Implementation                    |
+|---|--------------------------|------------------------------------------------------------------|-----------------------------------|
+| 1 | Data validation          | Fields can be null, matching proceeds with partial data          | ✓ Confirmed                       |
+| 2 | Partner's children       | **INCLUSIVE** - Partner CAN have additional children with others | `InclusiveChildCountStrategy`     |
+| 3 | Partner existence        | **REFERENCE-BASED** - Partner ID counts even if not POSTed       | `ReferenceBasedPartnerValidation` |
+| 4 | Null birthDate           | **PESSIMISTIC** - Null birthDate ≠ under 18                      | `PessimisticAgeValidation`        |
+| 5 | Parent consistency       | All 3 children must list SAME partner as second parent           | ✓ Enforced in strategies          |
+| 6 | Partner bidirectionality | **SYMMETRIC** - Auto-repair bidirectional relationships          | `PersonService`                   |
+| 7 | DELETE cascade           | Cascade delete references to ignored IDs                         | `CascadeDeleteStrategy`           |
+
+**Key Change:** #2 switched from Exclusive to Inclusive - requirement "has exactly 3 children" refers to the person
+being evaluated, NOT their partner.
