@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import nl.pinkroccade.familychallenge.dto.PersonRequestDTO;
 import nl.pinkroccade.familychallenge.dto.PersonResponseDTO;
 import nl.pinkroccade.familychallenge.service.PersonService;
+import nl.pinkroccade.familychallenge.service.strategy.cleanup.DataCleanupStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -73,6 +74,7 @@ public class PersonController {
      * <p>
      * Deleted IDs are remembered forever - if they show up in future requests,
      * they will be silently ignored for both storage and matching.
+     * References to deleted persons are handled by {@link DataCleanupStrategy}.
      * </p>
      *
      * @param ids the list of person IDs to delete

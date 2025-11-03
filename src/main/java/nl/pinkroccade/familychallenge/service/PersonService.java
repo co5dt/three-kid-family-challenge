@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -59,14 +60,14 @@ public class PersonService {
         // Clean up any references to ignored IDs before saving
         dataCleanupStrategy.cleanupReferences(person, repository.getIgnoredIds());
 
-        Person saved = repository.save(person);
-        if (saved == null) {
+        Optional<Person> saved = repository.save(person);
+        if (saved.isEmpty()) {
             log.warn("Failed to save person ID {}", request.id());
             return List.of();
         }
 
         // ASSUMPTION: ADR-04 #5 - Partner relationships are bidirectional
-        repairBidirectionalIntegrity(saved);
+        repairBidirectionalIntegrity(saved.get());
 
         return findAndConvertMatches();
     }
@@ -154,7 +155,7 @@ public class PersonService {
     private List<PersonResponseDTO> findAndConvertMatches() {
         List<Person> matches = patternMatchingService.findMatches();
         return matches.stream()
-                .map(person -> PersonMapper.toResponseDTO(person, repository))
+                .map(PersonMapper::toResponseDTO)
                 .toList();
     }
 }

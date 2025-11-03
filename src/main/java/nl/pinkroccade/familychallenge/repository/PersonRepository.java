@@ -15,7 +15,7 @@ import java.util.Set;
  */
 public interface PersonRepository {
 
-    Person save(Person person);
+    Optional<Person> save(Person person);
 
     Optional<Person> findById(Long id);
 

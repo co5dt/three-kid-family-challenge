@@ -19,16 +19,17 @@ import java.util.concurrent.ConcurrentHashMap;
 @Repository
 public class InMemoryPersonRepository implements PersonRepository {
 
-    private final ConcurrentHashMap<Long, Person> store      = new ConcurrentHashMap<>();
-    private final Set<Long>                       ignoredIds = ConcurrentHashMap.newKeySet();
+    private final ConcurrentHashMap<Long, Person> store = new ConcurrentHashMap<>();
+
+    private final Set<Long> ignoredIds = ConcurrentHashMap.newKeySet();
 
     @Override
-    public Person save(Person person) {
+    public Optional<Person> save(Person person) {
         if (isIgnored(person.getId())) {
-            return null; // Silently ignore
+            return Optional.empty(); // Silently ignore
         }
         store.put(person.getId(), person);
-        return person;
+        return Optional.of(person);
     }
 
     @Override

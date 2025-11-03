@@ -10,7 +10,14 @@ import org.springframework.context.annotation.Primary;
 
 import java.util.List;
 
-
+/**
+ * Configuration for strategy selection (ADR-04).
+ * 
+ * <p>Selects active strategy implementations from application.properties.
+ * All strategies are auto-discovered as {@code @Component} beans, then filtered
+ * by FQCN to select the configured one. Selected strategies are marked {@code @Primary}
+ * to resolve bean ambiguity during injection.</p>
+ */
 @Configuration
 public class FamilyChallengeConfiguration {
 
@@ -20,10 +27,15 @@ public class FamilyChallengeConfiguration {
         this.properties = properties;
     }
 
+    /**
+     * Selects the configured {@link PartnerValidationStrategy} from application.properties.
+     * 
+     * @param strategies all available partner validation strategies
+     * @return the selected strategy
+     */
     @Bean
     @Primary
     public PartnerValidationStrategy partnerValidationStrategy(List<PartnerValidationStrategy> strategies) {
-
         return strategies.stream()
                 .filter(s -> s.getClass().getName().equals(properties.getPartnerValidation()))
                 .findFirst()
@@ -34,10 +46,15 @@ public class FamilyChallengeConfiguration {
                                 + strategies.stream().map(s -> s.getClass().getName()).toList()));
     }
 
+    /**
+     * Selects the configured {@link ChildCountStrategy} from application.properties.
+     * 
+     * @param strategies all available child count strategies
+     * @return the selected strategy
+     */
     @Bean
     @Primary
     public ChildCountStrategy childCountStrategy(List<ChildCountStrategy> strategies) {
-
         return strategies.stream()
                 .filter(s -> s.getClass().getName().equals(properties.getChildCount()))
                 .findFirst()
@@ -48,10 +65,15 @@ public class FamilyChallengeConfiguration {
                                 + strategies.stream().map(s -> s.getClass().getName()).toList()));
     }
 
+    /**
+     * Selects the configured {@link AgeValidationStrategy} from application.properties.
+     * 
+     * @param strategies all available age validation strategies
+     * @return the selected strategy
+     */
     @Bean
     @Primary
     public AgeValidationStrategy ageValidationStrategy(List<AgeValidationStrategy> strategies) {
-
         return strategies.stream()
                 .filter(s -> s.getClass().getName().equals(properties.getAgeValidation()))
                 .findFirst()
@@ -62,10 +84,15 @@ public class FamilyChallengeConfiguration {
                                 + strategies.stream().map(s -> s.getClass().getName()).toList()));
     }
 
+    /**
+     * Selects the configured {@link DataCleanupStrategy} from application.properties.
+     * 
+     * @param strategies all available data cleanup strategies
+     * @return the selected strategy
+     */
     @Bean
     @Primary
     public DataCleanupStrategy dataCleanupStrategy(List<DataCleanupStrategy> strategies) {
-
         return strategies.stream()
                 .filter(s -> s.getClass().getName().equals(properties.getCascadeDelete()))
                 .findFirst()

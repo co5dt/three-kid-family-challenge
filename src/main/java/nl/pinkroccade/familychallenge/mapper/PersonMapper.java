@@ -4,7 +4,6 @@ import nl.pinkroccade.familychallenge.domain.Person;
 import nl.pinkroccade.familychallenge.dto.PersonReferenceDTO;
 import nl.pinkroccade.familychallenge.dto.PersonRequestDTO;
 import nl.pinkroccade.familychallenge.dto.PersonResponseDTO;
-import nl.pinkroccade.familychallenge.repository.PersonRepository;
 
 import java.util.List;
 import java.util.Set;
@@ -16,16 +15,16 @@ import java.util.stream.Collectors;
 public class PersonMapper {
 
     /**
-     * Converts PersonRequestDTO to Person domain object.
+     * Converts {@link PersonRequestDTO} to {@link Person} domain object.
      */
     public static Person toDomain(PersonRequestDTO dto) {
-        Person person = new Person();
-        person.setId(dto.id());
-        person.setName(dto.name());
-        person.setBirthDate(dto.birthDate());
-        person.setParent1Id(dto.parent1() != null ? dto.parent1().id() : null);
-        person.setParent2Id(dto.parent2() != null ? dto.parent2().id() : null);
-        person.setPartnerId(dto.partner() != null ? dto.partner().id() : null);
+        Person person = new Person()
+                .withId(dto.id())
+                .withName(dto.name())
+                .withBirthDate(dto.birthDate())
+                .withParent1Id(dto.parent1() != null ? dto.parent1().id() : null)
+                .withParent2Id(dto.parent2() != null ? dto.parent2().id() : null)
+                .withPartnerId(dto.partner() != null ? dto.partner().id() : null);
 
         if (dto.children() != null) {
             Set<Long> childrenIds = dto.children().stream()
@@ -38,22 +37,22 @@ public class PersonMapper {
     }
 
     /**
-     * Converts Person domain object to PersonResponseDTO.
+     * Converts {@link Person> domain object to {@link PersonResponseDTO>.
      * Resolves references to other entities via repository.
      */
-    public static PersonResponseDTO toResponseDTO(Person person, PersonRepository repository) {
+    public static PersonResponseDTO toResponseDTO(Person person) {
         return new PersonResponseDTO(
                 person.getId(),
                 person.getName(),
                 person.getBirthDate(),
-                toReference(person.getParent1Id(), repository),
-                toReference(person.getParent2Id(), repository),
-                toReference(person.getPartnerId(), repository),
+                toReference(person.getParent1Id()),
+                toReference(person.getParent2Id()),
+                toReference(person.getPartnerId()),
                 toReferenceList(person.getChildrenIds())
         );
     }
 
-    private static PersonReferenceDTO toReference(Long id, PersonRepository repository) {
+    private static PersonReferenceDTO toReference(Long id) {
         if (id == null) {
             return null;
         }

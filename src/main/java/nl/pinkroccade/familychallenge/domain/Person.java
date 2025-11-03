@@ -2,6 +2,7 @@ package nl.pinkroccade.familychallenge.domain;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
 
@@ -167,10 +168,7 @@ public class Person {
 
     @Override
     public int hashCode() {
-        /* Remark: https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
-         * If Person had a natural identifier (e.g. social security number), use it here.
-         */
-        return getClass().hashCode();
+        return Objects.hashCode(id);
     }
 
     @Override
